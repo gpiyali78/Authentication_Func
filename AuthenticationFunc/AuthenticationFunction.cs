@@ -25,7 +25,12 @@ namespace AuthenticationFunc
             {
                 GenerateJWTToken generateJWTToken = new();
                 string token = generateJWTToken.IssuingJWT(userCredentials.User);
-                return await Task.FromResult(new OkObjectResult(token)).ConfigureAwait(false);
+                // Return the token as JSON
+                var response = new
+                {
+                    token = token
+                };
+                return await Task.FromResult(new OkObjectResult(response)).ConfigureAwait(false);
             }
         }
     }
